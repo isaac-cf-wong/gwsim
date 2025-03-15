@@ -33,8 +33,8 @@ class PowerLaw(UnivariateDistribution):
     def __new__(cls,
                 alpha: float,
                 x_min: float,
-                x_max: Union[float, None]=None,
-                name: Union[str, None]=None):
+                x_max: Union[float, None] = None,
+                name: Union[str, None] = None):
         """Return a PowerLaw instance, or a Uniform instance if alpha == 0.
 
         Args:
@@ -60,8 +60,8 @@ class PowerLaw(UnivariateDistribution):
     def __init__(self,
                  alpha: float,
                  x_min: float,
-                 x_max: float=np.inf,
-                 name: str='power_law'):
+                 x_max: float = np.inf,
+                 name: str = 'power_law'):
         """Power law distribution.
 
         Args:
@@ -124,7 +124,7 @@ class PowerLaw(UnivariateDistribution):
         else:
             raise Exception(f'Unexpected error. alpha = {self.alpha}, x_min = {self.x_min}, and x_max = {self.x_max} miss the conditions to compute the log normalization constant.')
 
-    def log_prob(self, samples: SAMPLES_DTYPE, given: GIVEN_DTYPE=None) -> PROB_DTYPE:
+    def log_prob(self, samples: SAMPLES_DTYPE, given: GIVEN_DTYPE = None) -> PROB_DTYPE:
         """Log probability density.
 
         Args:
@@ -135,7 +135,7 @@ class PowerLaw(UnivariateDistribution):
         """
         return self.alpha * np.log(samples) + self.log_norm
 
-    def sample(self, number: int=1, given: GIVEN_DTYPE=None) -> SAMPLES_DTYPE:
+    def sample(self, number: int = 1, given: GIVEN_DTYPE = None) -> SAMPLES_DTYPE:
         """Draw samples.
 
         Args:

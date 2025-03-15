@@ -10,9 +10,9 @@ PROB_DTYPE = np.ndarray
 
 class UnivariateDistribution(ABC):
     def __init__(self,
-                 x_min: float=-np.inf,
-                 x_max: float=np.inf,
-                 name: Union[str, None]=None):
+                 x_min: float = -np.inf,
+                 x_max: float = np.inf,
+                 name: Union[str, None] = None):
         """Distribution.
 
         Args:
@@ -157,7 +157,7 @@ class UnivariateDistribution(ABC):
         return np.exp(self.log_prob(samples=samples, given=given))
 
     @abstractmethod
-    def sample(self, number: int=1, given: GIVEN_DTYPE=None) -> SAMPLES_DTYPE:
+    def sample(self, number: int = 1, given: GIVEN_DTYPE = None) -> SAMPLES_DTYPE:
         """Draw samples from the distribution $p(x | y)$.
 
         Args:
