@@ -1,3 +1,5 @@
+"""Distribution classes.
+"""
 from .univariate import (PowerLaw,
                          Uniform)
 

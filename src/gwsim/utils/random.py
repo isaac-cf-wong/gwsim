@@ -1,5 +1,5 @@
-
-from random import Random
+"""A random number manager.
+"""
 from numpy.random import default_rng, SeedSequence, Generator
 
 
@@ -37,7 +37,7 @@ class RandomManager:
         Returns:
             list: A list of SeedSequence.
         """
-        return SeedSequence(_rng.integers(0, 2**63 - 1, size=4)).spawn(nseeds)
+        return SeedSequence(cls._rng.integers(0, 2**63 - 1, size=4)).spawn(nseeds)
 
 
 # Alias for easy  access

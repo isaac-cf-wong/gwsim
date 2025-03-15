@@ -1,3 +1,5 @@
+"""A parent class for all univariate distribution classes.
+"""
 from abc import ABC, abstractmethod
 from typing import Union
 import numpy as np

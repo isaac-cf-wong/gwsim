@@ -1,3 +1,5 @@
+"""A power law distribution.
+"""
 from typing import Union
 import numpy as np
 from .univariate import UnivariateDistribution
@@ -114,9 +116,9 @@ class PowerLaw(UnivariateDistribution):
         if self.alpha != -1 and self.x_max is not None:
             return np.log(1 + self.alpha) - \
                 np.log(self.x_max**(1 + self.alpha) - self.x_min**(1 + self.alpha))
-        elif self.alpha < -1 and self.x_max is None:
+        if self.alpha < -1 and self.x_max is None:
             return np.log(-1 - self.alpha) - (1 + self.alpha)*np.log(self.x_min)
-        elif self.alpha == -1:
+        if self.alpha == -1:
             return -np.log(np.log(self.x_max) - np.log(self.x_min))
         else:
             raise Exception(f'Unexpected error. alpha = {self.alpha}, x_min = {self.x_min}, and x_max = {self.x_max} miss the conditions to compute the log normalization constant.')
