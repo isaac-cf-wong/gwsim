@@ -1,3 +1,5 @@
+"""Population generation.
+"""
 from . import compact_binary
 
 

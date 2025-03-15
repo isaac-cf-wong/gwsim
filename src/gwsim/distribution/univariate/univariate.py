@@ -3,12 +3,9 @@ from typing import Union
 import numpy as np
 
 
-SAMPLES_DTYPE = np.ndarray
-GIVEN_DTYPE = Union[np.ndarray, None]
-PROB_DTYPE = np.ndarray
-
-
 class UnivariateDistribution(ABC):
+    """A univariate distribution.
+    """
     def __init__(self,
                  x_min: float = -np.inf,
                  x_max: float = np.inf,
@@ -22,7 +19,6 @@ class UnivariateDistribution(ABC):
 
         Raises:
             ValueError: x_min must be smaller than x_max.
-            ValueError: If name == 'mass_1', x_min must be provided.
             ValueError: If name == 'mass_1', x_min must be positive.
         """
         self._x_min = x_min
@@ -32,9 +28,7 @@ class UnivariateDistribution(ABC):
         if x_min >= x_max:
             raise ValueError(f'x_min = {x_min} must be smaller than x_max = {x_max}.')
         if name == 'mass_1':
-            if x_min is None:
-                raise ValueError(f'For {name} distribution, x_min must be provided.')
-            elif x_min <= 0:
+            if x_min <= 0:
                 raise ValueError(f'For {name} distribution, x_min = {x_min} must be positive.')
 
     def __repr__(self) -> str:
@@ -136,7 +130,7 @@ class UnivariateDistribution(ABC):
         raise NotImplementedError('This method should be implemented in a subclass.')
 
     @abstractmethod
-    def log_prob(self, samples: SAMPLES_DTYPE, given: GIVEN_DTYPE) -> PROB_DTYPE:
+    def log_prob(self, samples: np.ndarray, given: Union[np.ndarray, None]) -> np.ndarray:
         """Log probability density for continuous distributions,
         of log probability for discrete distributions.
 
@@ -153,11 +147,20 @@ class UnivariateDistribution(ABC):
         """
         raise NotImplementedError('This method should be implemented in a subclass.')
 
-    def prob(self, samples: SAMPLES_DTYPE, given: GIVEN_DTYPE) -> PROB_DTYPE:
+    def prob(self, samples: np.ndarray, given: Union[np.ndarray, None]) -> np.ndarray:
+        """Probablity density for continuous distributions or probability for discrete distribution.
+
+        Args:
+            samples (np.ndarray): Samples.
+            given (Union[np.ndarray, None]): Conditioned samples.
+
+        Returns:
+            np.ndarray: Probablity density for continuous distributions or probability for discrete distribution.
+        """
         return np.exp(self.log_prob(samples=samples, given=given))
 
     @abstractmethod
-    def sample(self, number: int = 1, given: GIVEN_DTYPE = None) -> SAMPLES_DTYPE:
+    def sample(self, number: int = 1, given: Union[np.ndarray, None] = None) -> np.ndarray:
         """Draw samples from the distribution $p(x | y)$.
 
         Args:

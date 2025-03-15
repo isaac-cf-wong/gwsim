@@ -1,9 +1,6 @@
 from typing import Union
 import numpy as np
-from .univariate import (UnivariateDistribution,
-                         SAMPLES_DTYPE,
-                         GIVEN_DTYPE,
-                         PROB_DTYPE)
+from .univariate import UnivariateDistribution
 from .uniform import Uniform
 from ...utils.random import get_rng
 
@@ -124,7 +121,7 @@ class PowerLaw(UnivariateDistribution):
         else:
             raise Exception(f'Unexpected error. alpha = {self.alpha}, x_min = {self.x_min}, and x_max = {self.x_max} miss the conditions to compute the log normalization constant.')
 
-    def log_prob(self, samples: SAMPLES_DTYPE, given: GIVEN_DTYPE = None) -> PROB_DTYPE:
+    def log_prob(self, samples: np.ndarray, given: Union[np.ndarray, None] = None) -> np.ndarray:
         """Log probability density.
 
         Args:
@@ -135,7 +132,7 @@ class PowerLaw(UnivariateDistribution):
         """
         return self.alpha * np.log(samples) + self.log_norm
 
-    def sample(self, number: int = 1, given: GIVEN_DTYPE = None) -> SAMPLES_DTYPE:
+    def sample(self, number: int = 1, given: Union[np.ndarray, None] = None) -> np.ndarray:
         """Draw samples.
 
         Args:

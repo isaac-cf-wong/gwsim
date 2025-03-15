@@ -1,12 +1,11 @@
 import numpy as np
-from .univariate import (UnivariateDistribution,
-                         SAMPLES_DTYPE,
-                         GIVEN_DTYPE,
-                         PROB_DTYPE)
+from .univariate import UnivariateDistribution
 from ...utils.random import get_rng
 
 
 class Uniform(UnivariateDistribution):
+    """A uniform distribution.
+    """
     def __init__(self,
                  x_min: float = 0.,
                  x_max: float = 1.,
@@ -38,15 +37,15 @@ class Uniform(UnivariateDistribution):
         """
         return -np.log(self._x_max - self._x_min)
 
-    def log_prob(self, samples: SAMPLES_DTYPE, given: GIVEN_DTYPE = None) -> PROB_DTYPE:
+    def log_prob(self, samples: np.ndarray, given: Union[np.ndarray, None] = None) -> np.ndarray:
         """Log probability density.
 
         Args:
-            samples (SAMPLES_DTYPE): Samples
-            given (GIVEN_DTYPE, optional): Conditioned samples. Defaults to None.
+            samples (np.ndarray): Samples
+            given (Union[np.ndarray, None], optional): Conditioned samples. Defaults to None.
 
         Returns:
-            PROB_DTYPE: Log probablity density.
+            np.ndarray: Log probablity density.
         """
         return np.log(samples) + self.log_norm
 
