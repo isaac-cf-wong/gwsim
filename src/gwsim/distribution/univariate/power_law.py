@@ -16,13 +16,13 @@ class PowerLaw(UnivariateDistribution):
 
     .. math::
         p(x | \alpha, x_{\text{min}}, x_{\text{max}}) =
-        \frac{\alpha - 1}{x_{\text{min}}} \left( \frac{x}{x_{\text{min}}} \right)^{-\alpha}
+        \frac{\alpha - 1}{x_{\text{min}}} \\left( \frac{x}{x_{\text{min}}} \right)^{-\alpha}
 
     for :math:`\alpha > 0`, and
 
     .. math::
         p(x | \alpha = 0, x_{\text{min}}, x_{\text{max}}) =
-        \frac{1}{x_{\text{min}}} \quad \text{(uniform distribution for } \alpha = 0 \text{)}
+        \frac{1}{x_{\text{min}}} \\quad \text{(uniform distribution for } \alpha = 0 \text{)}
 
     where:
     - :math:`\alpha` is the exponent parameter (typically greater than 1).
@@ -116,7 +116,7 @@ class PowerLaw(UnivariateDistribution):
         """
         if self.alpha != -1 and self.x_max is not None:
             return np.log(1 + self.alpha) - \
-                np.log(self.x_max**(1+self.alpha) - self.x_min**(1+self.alpha))
+                np.log(self.x_max**(1 + self.alpha) - self.x_min**(1 + self.alpha))
         elif self.alpha < -1 and self.x_max is None:
             return np.log(-1 - self.alpha) - (1 + self.alpha)*np.log(self.x_min)
         elif self.alpha == -1:
@@ -145,12 +145,12 @@ class PowerLaw(UnivariateDistribution):
             np.ndarray: An array of samples.
         """
         if self.alpha != -1 and self.x_max is not None:
-            a = self.x_max ** (1+self.alpha)
-            b = self.x_min ** (1+self.alpha)
-            return (get_rng().random((number, 1))*(a-b) + b) ** (1 / (1+self.alpha))
+            a = self.x_max ** (1 + self.alpha)
+            b = self.x_min ** (1 + self.alpha)
+            return (get_rng().random((number, 1))*(a - b) + b) ** (1 / (1 + self.alpha))
         elif self.alpha == -1:
             log_x_min = np.log(self.x_min)
             log_x_max = np.log(self.x_max)
             return np.exp(get_rng().random((number, 1)) * (log_x_max - log_x_min) + log_x_min)
         else:
-            return (1. - get_rng().random((number, 1)))**(1/(1+self.alpha)) * self.x_min
+            return (1. - get_rng().random((number, 1)))**(1 / (1 + self.alpha)) * self.x_min

@@ -39,9 +39,18 @@ class Uniform(UnivariateDistribution):
         return -np.log(self._x_max - self._x_min)
 
     def log_prob(self, samples: SAMPLES_DTYPE, given: GIVEN_DTYPE = None) -> PROB_DTYPE:
+        """Log probability density.
+
+        Args:
+            samples (SAMPLES_DTYPE): Samples
+            given (GIVEN_DTYPE, optional): Conditioned samples. Defaults to None.
+
+        Returns:
+            PROB_DTYPE: Log probablity density.
+        """
         return np.log(samples) + self.log_norm
 
-    def sample(self, number: int = 1, given = None) -> np.ndarray:
+    def sample(self, number: int = 1, given=None) -> np.ndarray:
         """Drae samples.
 
         Args:
