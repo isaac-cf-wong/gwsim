@@ -120,8 +120,8 @@ class PowerLaw(UnivariateDistribution):
             return np.log(-1 - self.alpha) - (1 + self.alpha)*np.log(self.x_min)
         if self.alpha == -1:
             return -np.log(np.log(self.x_max) - np.log(self.x_min))
-        else:
-            raise Exception(f'Unexpected error. alpha = {self.alpha}, x_min = {self.x_min}, and x_max = {self.x_max} miss the conditions to compute the log normalization constant.')
+        raise Exception((f'Unexpected error. alpha = {self.alpha}, x_min = {self.x_min}, and x_max = {self.x_max}'
+                        'miss the conditions to compute the log normalization constant.'))
 
     def log_prob(self, samples: np.ndarray, given: Union[np.ndarray, None] = None) -> np.ndarray:
         """Log probability density.
@@ -147,9 +147,8 @@ class PowerLaw(UnivariateDistribution):
             a = self.x_max ** (1 + self.alpha)
             b = self.x_min ** (1 + self.alpha)
             return (get_rng().random((number, 1))*(a - b) + b) ** (1 / (1 + self.alpha))
-        elif self.alpha == -1:
+        if self.alpha == -1:
             log_x_min = np.log(self.x_min)
             log_x_max = np.log(self.x_max)
             return np.exp(get_rng().random((number, 1)) * (log_x_max - log_x_min) + log_x_min)
-        else:
-            return (1. - get_rng().random((number, 1)))**(1 / (1 + self.alpha)) * self.x_min
+        return (1. - get_rng().random((number, 1)))**(1 / (1 + self.alpha)) * self.x_min

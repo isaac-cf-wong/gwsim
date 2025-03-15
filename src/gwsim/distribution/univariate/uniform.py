@@ -1,6 +1,7 @@
 """A uniform distribution.
 """
 import numpy as np
+from typing import Union
 from .univariate import UnivariateDistribution
 from ...utils.random import get_rng
 

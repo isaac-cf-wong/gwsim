@@ -1,3 +1,5 @@
+"""A package to simulate a population of gravitational waves.
+"""
 from . import distribution
 from . import utils
 
