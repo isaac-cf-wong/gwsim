@@ -3,6 +3,7 @@
 #   Licensed under the MIT License. See LICENSE in project root for information.
 #   -------------------------------------------------------------
 """Python Package Template"""
-from __future__ import annotations
+from . import distribution
+from . import utils
 
-__version__ = "0.0.2"
+__version__ = "1.0.0"
